@@ -1,0 +1,83 @@
+:root {
+    --button-background: #7FDBFF;
+    --button-hover-background: #9ddbf3;
+    --button-active-background: #39CCCC;
+    --button-shadow-color: #001f3f;
+    --button-text-color: rgb(2, 53, 2);
+    --radio-background: #7FDBFF;
+}
+/*<=============Button================>*/
+.btn {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    background: var(--button-background);
+    color: var(--button-text-color);
+}
+
+.btn-scale-animated {
+    animation-name: scale-in-out;
+    animation-duration: .9s;
+    animation-iteration-count: infinite;
+}
+
+.btn:hover {
+    background: var(--button-hover-background);
+    box-shadow: 0 0 5px 0 var(--button-shadow-color);
+}
+
+.btn:active {
+    background: var(--button-active-background);
+}
+
+.btn-start {
+    width: 20rem;
+}
+
+/*=================Radio===================*/
+
+.radio-label {
+    position: relative;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.radio-checkmark {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    height: 100%;
+    width: 60%;
+    display: none;
+    position: absolute;
+    z-index: -1;
+    background: var(--radio-background);
+    border-radius: 20px;
+}
+
+.radio-button {
+    display: none;
+}
+
+.radio-button:checked + .radio-checkmark {
+    display: inline-block;
+}
+
+/*===============Animatioin===============*/
+
+@keyframes scale-in-out {
+    from {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.03);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}

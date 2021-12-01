@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css">
+    <script type="text/javascript" src="scripts/main.js" defer></script>
+    <title>Tic Tac Toe</title>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="game-container">
+            <div class="score-container">
+                <label>(X) Player: <span>5</span></label>
+                <label>(O) Computer: <span>2</span></label>
+            </div>
+            <div game-board-data class="game-board"></div>
+        <div>
+            <button>Start New Game</button>
+            <button>Restart</button>
+        </div>
+        </div>
+        <div start-game-form class="start-game__form">
+            <h1 class="start-game__header">(X) == Tic Tac Toe == (O)</h1>
+            <div class="radio-button__container">
+                <input user-name-data type="text" class="name-input" placeholder="Enter your name">
+                <input user2-name-data type="text" class="name-input opponent-name__input" placeholder="Second player name">
+                <label class="radio-label">Player vs PC
+                    <input type="radio" class="radio-button" name="opponent-selection" value="computer" checked>
+                    <span class="radio-checkmark"></span>
+                </label>
+                <label class="radio-label">Player vs Player
+                    <input type="radio" class="radio-button" name="opponent-selection" value="player">
+                    <span class="radio-checkmark"></span>
+                </label>
+                <div class="sign-selection__container">
+                    <label class="radio-label">
+                        <input type="radio" name="sign-selection" value="X" checked>
+                        <span>X</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="sign-selection" value="O">
+                        <span>O</span>
+                    </label>
+                </div>
+                <button start-game-button class="btn btn-scale-animated btn-start">Begin Challange</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
