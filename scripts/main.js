@@ -1,9 +1,13 @@
 const GAME_BOARD_SIZE = 9;
 let idGenerator = {};
+const gamePlayers = [];
+
+let firstPlayerScore = document.querySelector("[player-score-data]");
+let secondPlayerScore = document.querySelector("[opponent-score-data]");
 const startGameButton = document.querySelector("[start-game-button]");
 const radioOpponentSelection = document.querySelectorAll("input[name='opponent-selection']");
 
-startGameButton.addEventListener("click", getUserInput);
+startGameButton.addEventListener("click", startNewGame);
 radioOpponentSelection.forEach(radio => radio.addEventListener("change", displayOpponentNameInput, false));
 
 idGenerator.uniqueId = (function() {
@@ -14,10 +18,29 @@ idGenerator.uniqueId = (function() {
     };
 }());
 
+const playerFactory =  (name, sign) => {
+    const player = {};
+    player._name = name;
+    player._score = 0;
+    player._sign = sign;
+
+    increaseScore = () => {
+        player._score++;
+    };
+
+    getName = () => player._name;
+    getSign = () => player._sign;
+    getScore = () => player._score;
+
+    return {getName, increaseScore, getSign, getScore};
+}
+
+ 
+
 function displayOpponentNameInput(event) {
     let secondPlayerName = document.querySelector("[user2-name-data]");
     secondPlayerName.value = "";
-    if (event.target.value === "player") {
+    if (event.target.value === "Player-2") {
         secondPlayerName.style.opacity = 1;
         secondPlayerName.style.visibility = "visible";
         secondPlayerName.style.position = "relative";
@@ -29,27 +52,29 @@ function displayOpponentNameInput(event) {
     }
 }
 
-const PlayersInfo =
-    () => {
-        const _userName = document.querySelector("[user-name-data]").value || "Player";
-        const _opponentName = document.querySelector("[user2-name-data]").value || "Computer";
-        const _opponentSelection = document.querySelector("input[name='opponent-selection']:checked").value;
-        const _playerSign = document.querySelector("input[name='sign-selection']:checked").value;
-        
-        const getUserName = () => _userName;
-        const getOpponentName = () => _opponentName;
-        const getPlayerSign = () => _playerSign;
-        
-        return {getUserName, getOpponentName, getPlayerSign};
-    };
-
-function getUserInput() {
-    const players = PlayersInfo();
-    console.log(players.getOpponentName());
+function startNewGame() {
     document.querySelector("[start-game-form]").style.animationName = "scale-out";
     setTimeout(hideElement, 1000, document.querySelector("[start-game-form]"));
     setTimeout(showElement, 1000, document.querySelector(".game-container"));
+    createPlayers();
     createGameBoard();
+}
+
+function createPlayers() {
+    const userNameInput = document.querySelector("[user-name-data]").value || "Player";
+    const opponentSelectionInput = document.querySelector("input[name='opponent-selection']:checked").value;
+    const opponentNameInput = document.querySelector("[user2-name-data]").value || opponentSelectionInput;
+    const playerSignInput = document.querySelector("input[name='sign-selection']:checked").value;
+    const opponentSignInput = document.querySelector("input[name='sign-selection']:not(:checked)").value;
+
+    const firstPlayer = playerFactory(userNameInput, playerSignInput);
+    const opponentPlayer = playerFactory(opponentNameInput, opponentSignInput);
+
+    document.querySelector("[player-name-data]").innerText = `(${firstPlayer.getSign()}) ${firstPlayer.getName()}: `;
+    document.querySelector("[opponent-name-data]").innerText = `(${opponentPlayer.getSign()}) ${opponentPlayer.getName()}: `;
+    
+    gamePlayers.push(firstPlayer);
+    gamePlayers.push(opponentPlayer);
 }
 
 function createGameBoard() {
@@ -63,8 +88,12 @@ function createGameBoard() {
 }
 
 function blockClicked(event) {
+    gamePlayers[0].increaseScore();
+    firstPlayerScore.textContent = gamePlayers[0].getScore();
+    console.log(gamePlayers[0].getScore(), firstPlayerScore.innerText);
+
     console.log(event.target.id);
-    event.target.innerText = "X";
+    event.target.innerText = gamePlayers[0].getSign();
 }
 
 function hideElement(element) {

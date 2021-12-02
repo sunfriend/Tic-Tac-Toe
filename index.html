@@ -12,8 +12,8 @@
     <div class="page-wrapper">
         <div class="game-container">
             <div class="score-container">
-                <label>(X) Player: <span>5</span></label>
-                <label>(O) Computer: <span>2</span></label>
+                <div><label player-name-data>(X) Player: </label><span player-score-data>0</span></div>
+                <div><label opponent-name-data>(O) Computer: </label><span opponent-score-data>0</span></div>
             </div>
             <div game-board-data class="game-board"></div>
         <div>
@@ -27,11 +27,11 @@
                 <input user-name-data type="text" class="name-input" placeholder="Enter your name">
                 <input user2-name-data type="text" class="name-input opponent-name__input" placeholder="Second player name">
                 <label class="radio-label">Player vs PC
-                    <input type="radio" class="radio-button" name="opponent-selection" value="computer" checked>
+                    <input type="radio" class="radio-button" name="opponent-selection" value="Computer" checked>
                     <span class="radio-checkmark"></span>
                 </label>
                 <label class="radio-label">Player vs Player
-                    <input type="radio" class="radio-button" name="opponent-selection" value="player">
+                    <input type="radio" class="radio-button" name="opponent-selection" value="Player-2">
                     <span class="radio-checkmark"></span>
                 </label>
                 <div class="sign-selection__container">

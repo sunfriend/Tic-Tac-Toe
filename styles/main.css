@@ -57,10 +57,14 @@
 .grid-block {
     width: 10rem;
     height: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 8px;
     background: var(--game-grid-color);
     box-shadow: 5px 5px 10px 2px black;
     transition: all .18s ease-in-out;
+    font-size: 10rem;
 }
 
 
