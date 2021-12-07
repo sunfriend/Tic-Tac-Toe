@@ -225,4 +225,16 @@ function displayRoundSummary(player, symbol) {
         summaryWindow.querySelector("h2").innerText = "Yep, it's a tie :)";
         summaryWindow.querySelector("img").src = "../img/tie.png";
     }
+    summaryWindow.querySelector("button").addEventListener("click", closeWindow);
+    summaryWindow.querySelector("button:last-child").addEventListener("click", startNewGame);
+}
+
+function closeWindow() {
+    summaryWindow.classList.remove("display-summary");
+    summaryWindow.querySelector(".summary-content").style.opacity = 0;
+    summaryWindow.querySelector(".summary-content").style.visibility = "hidden";
+}
+
+function startNewGame() {
+    window.location.reload();
 }

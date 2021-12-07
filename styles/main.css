@@ -9,6 +9,7 @@
     --menu-font-family: 'Courgette', cursive, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --game-container-background: #a6b1ab;
     --game-grid-color: rgb(122, 122, 240);
+    --message-color: linear-gradient(#ccd6d1, #c4ebc9);
 }
 
 * {
@@ -169,8 +170,9 @@
     margin: 10% auto;
     opacity: 0;
     visibility: hidden;
-    background-color: cornsilk;
+    background: var(--message-color);
     border-radius: 10px;
+    border: 9px solid gainsboro;
 }
 
 .display-summary {
@@ -178,6 +180,15 @@
     height: 100vh;
 }
 
+.message-title {
+    font-size: var(--menu-font-size);
+}
+
+.copyright {
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: bold;
+}
 /*===================Animation====================*/
 
 @keyframes scale-out {
