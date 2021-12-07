@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/main.css">
-    <script type="text/javascript" src="scripts/main.js" defer></script>
+    <script src="scripts/main.js" defer></script>
+    <link rel="shortcut icon" href="#">
     <title>Tic Tac Toe</title>
 </head>
 <body>
@@ -13,19 +14,15 @@
         <div class="game-container">
             <div class="score-container">
                 <div><label player-name-data>(X) Player: </label><span player-score-data>0</span></div>
-                <div><label opponent-name-data>(O) Computer: </label><span opponent-score-data>0</span></div>
+                <div><label opponent-name-data>(O) Computer: </label><span player-score-data>0</span></div>
             </div>
-            <div game-board-data class="game-board"></div>
-        <div>
-            <button>Start New Game</button>
-            <button>Restart</button>
-        </div>
+            <div gameboard-data class="gameboard"></div>
         </div>
         <div start-game-form class="start-game__form">
             <h1 class="start-game__header">(X) == Tic Tac Toe == (O)</h1>
             <div class="radio-button__container">
-                <input user-name-data type="text" class="name-input" placeholder="Enter your name">
-                <input user2-name-data type="text" class="name-input opponent-name__input" placeholder="Second player name">
+                <input player-name type="text" class="name-input" placeholder="Enter your name">
+                <input opponent-name type="text" class="name-input opponent-name__input" placeholder="Second player name">
                 <label class="radio-label">Player vs PC
                     <input type="radio" class="radio-button" name="opponent-selection" value="Computer" checked>
                     <span class="radio-checkmark"></span>
@@ -35,16 +32,24 @@
                     <span class="radio-checkmark"></span>
                 </label>
                 <div class="sign-selection__container">
-                    <label class="radio-label">
-                        <input type="radio" name="sign-selection" value="X" checked>
+                    <label class="radio-label sign-slide">
+                        <input class="radio-button" type="radio" name="sign-selection" value="X" checked>
                         <span>X</span>
                     </label>
-                    <label class="radio-label">
-                        <input type="radio" name="sign-selection" value="O">
-                        <span>O</span>
+                    <label class="radio-label sign-slide">
+                        <input class="radio-button" type="radio" name="sign-selection" value="O">
+                        <span span-o-data>O</span>
                     </label>
                 </div>
                 <button start-game-button class="btn btn-scale-animated btn-start">Begin Challange</button>
+            </div> 
+        </div>
+        <div game-over-data class="game-over">
+            <div class="summary-content">
+                <h2 won-tie-data></h2>
+                <img style="width: 5rem; height: 5rem;" alt="player-symbol">
+                <button>Continue</button>
+                <button>New Game</button>
             </div>
         </div>
     </div>

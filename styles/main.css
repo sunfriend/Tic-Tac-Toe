@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
 @import url(inputs.css);
 :root {
+    --main-background-color: linear-gradient(#c7fddf, #c4f0c9);
     --main-page-background: gray;
     --form-background: linear-gradient(#c7fddf, #c4f0c9);
     --menu-font-size: 2.5rem;
@@ -17,6 +18,7 @@
 }
 
 .page-wrapper {
+    position: relative;
     padding: 2rem;
     min-height: 100vh;
     min-width: 100vw;
@@ -24,28 +26,28 @@
 }
 
 .game-container {
-    width: 80%;
-    height: 92vh;
+    max-width: 65%;
+    min-height: 43.5rem;
     display: none;
     background: var(--game-container-background);
     font-family: var(--menu-font-family);
     font-size: var(--menu-font-size);
     margin: 0 auto;
-    border: 3px solid rgb(0, 183, 255);
+    border: 6px solid rgb(72, 131, 33);
     box-shadow: 8px 8px 6px 0 black;
+    background: var(--main-background-color);
+    animation-duration: 1s;
+    animation-iteration-count: 1;
 }
 
-.game-board {
+.gameboard {
     display: grid;
     grid-template-columns: 10rem 10rem 10rem;
     grid-template-rows: 10rem 10rem 10rem;
     margin-top: 3rem;
     justify-content: center;
     gap: 12px;
-}
-
-.game-board:hover {
-    cursor: pointer;
+    transition: all .5s ease-in-out;
 }
 
 .score-container {
@@ -65,11 +67,15 @@
     box-shadow: 5px 5px 10px 2px black;
     transition: all .18s ease-in-out;
     font-size: 10rem;
+    
 }
-
 
 .grid-block:hover {
     transform: scale(1.05);
+    cursor: pointer;
+    animation-name: text-color-shifts;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
 }
 
 .start-game__header {
@@ -110,9 +116,9 @@
 }
 
 .opponent-name__input {
+    visibility: hidden;
     position: absolute;
     opacity: 0;
-    visibility: hidden;
     transition: all .8s cubic-bezier(1, 1, 0.165, .1);
 }
 
@@ -135,6 +141,43 @@
     margin: 0 1rem;
 }
 
+.hide {
+    display: none;
+}
+
+.game-over {
+    top: 0;
+    left: 0;
+    margin: auto;
+    display: absolute;
+    position: fixed;
+    width: 0;
+    height: 0;
+    background-color: rgba(95, 95 , 95, .5);
+    transition: all .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-family: var(--menu-font-family);
+}
+
+.summary-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 1rem;
+    width: 25rem;
+    min-height: 25rem;
+    margin: 10% auto;
+    opacity: 0;
+    visibility: hidden;
+    background-color: cornsilk;
+    border-radius: 10px;
+}
+
+.display-summary {
+    width: 100vw;
+    height: 100vh;
+}
+
 /*===================Animation====================*/
 
 @keyframes scale-out {
@@ -144,4 +187,26 @@
     to {
         transform: scale(0) rotate(360deg);
     }
+}
+
+@keyframes scale-in {
+    from {
+        transform: scale(0) rotate(0);
+    }
+    to {
+        transform: scale(1) rotate(-360deg);
+    }
+}
+
+@keyframes text-color-shifts {
+    0% {
+        color: black;
+    }
+    50% {
+        color: rgb(21, 168, 156);
+    }
+    100% {
+        color: black;
+    }
+    
 }
