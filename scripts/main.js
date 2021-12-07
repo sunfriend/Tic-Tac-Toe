@@ -41,6 +41,8 @@ function createPlayers() {
     player = playerFactory(playerName, playerSymbol);
     OPPONENT = playerFactory(opponentName, opponentSymbol, opponentType);
 
+    Gameset.setActivePlayer(player.getSymbol());
+
     gamePlayers.push(player);
     gamePlayers.push(OPPONENT);
 }
@@ -92,7 +94,6 @@ function init() {
 
 
 function createPlayground() {
-    console.log();
     playerNameLabel.innerText = `(${player.getSymbol()})-${player.getName()}: `;
     opponentNameLabel.innerText = `(${OPPONENT.getSymbol()})-${OPPONENT.getName()}: `;
     createGameboard();
@@ -123,20 +124,9 @@ const Gameset = (() => {
         let arr = Gameboard.getAllValues();
         return arr.every(block => block !== null);
     };
-
-    const setActivePlayer = ((symbol) => {
-        let active = false;
-        return function() {
-                if (!active) {
-                    if (symbol === "X") {
-                    _activePlayer = 0;
-                }
-                else _activePlayer = 1;
-            }
-            active = true;
-        };
-    })();
-    
+    const setActivePlayer = (symbol) => {
+        symbol === "X" ? _activePlayer = 0 : _activePlayer = 1;
+    };
     const getActivePlayer = () => _activePlayer;
 
     return {switchTurn, isWinner, isDraw, getActivePlayer, setActivePlayer};
@@ -169,7 +159,6 @@ const Gameboard = (() => {
 function blockClicked(event) {
     //get active player
     clickAudioSound.play();
-    Gameset.setActivePlayer(gamePlayers[0].getSymbol());
     const activePlayer = gamePlayers[Gameset.getActivePlayer()];
     const playerSymbol = activePlayer.getSymbol();
     Gameboard.setValue(getClickedBlockIndex(event), playerSymbol);
@@ -193,7 +182,11 @@ function blockClicked(event) {
         return;
     }  
     //Switch turn if winner and tie are false
+    //Don't switch if opponent is computer
     Gameset.switchTurn();
+    /* if (OPPONENT.getType() !== "computer"){
+        Gameset.switchTurn();
+    } */
 }
 
 function getClickedBlockIndex(element) {
@@ -201,7 +194,7 @@ function getClickedBlockIndex(element) {
 }
 
 function createGameboard() {
-    gameMusic.play();
+    //gameMusic.play();
     for (let i = 0; i < Gameboard.getSize(); i++) {
         const div = document.createElement("div");
         div.id = idGenerator.uniqueId("grid");
