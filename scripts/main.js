@@ -124,9 +124,22 @@ const Gameset = (() => {
         return arr.every(block => block !== null);
     };
 
+    const setActivePlayer = ((symbol) => {
+        let active = false;
+        return function() {
+                if (!active) {
+                    if (symbol === "X") {
+                    _activePlayer = 0;
+                }
+                else _activePlayer = 1;
+            }
+            active = true;
+        };
+    })();
+    
     const getActivePlayer = () => _activePlayer;
 
-    return {switchTurn, isWinner, isDraw, getActivePlayer};
+    return {switchTurn, isWinner, isDraw, getActivePlayer, setActivePlayer};
 })();
 
 const Gameboard = (() => {
@@ -156,6 +169,7 @@ const Gameboard = (() => {
 function blockClicked(event) {
     //get active player
     clickAudioSound.play();
+    Gameset.setActivePlayer(gamePlayers[0].getSymbol());
     const activePlayer = gamePlayers[Gameset.getActivePlayer()];
     const playerSymbol = activePlayer.getSymbol();
     Gameboard.setValue(getClickedBlockIndex(event), playerSymbol);
@@ -179,7 +193,7 @@ function blockClicked(event) {
         return;
     }  
     //Switch turn if winner and tie are false
-    Gameset.switchTurn(Gameset.isDraw());
+    Gameset.switchTurn();
 }
 
 function getClickedBlockIndex(element) {

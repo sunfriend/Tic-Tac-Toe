@@ -20,20 +20,20 @@
 
 .page-wrapper {
     position: relative;
-    padding: 2rem;
+    padding: 1rem;
     min-height: 100vh;
     min-width: 100vw;
     background: var(--main-page-background);
 }
 
 .game-container {
-    max-width: 65%;
-    min-height: 43.5rem;
+    max-width: 63%;
+    max-height: 40.5rem;
     display: none;
     background: var(--game-container-background);
     font-family: var(--menu-font-family);
     font-size: var(--menu-font-size);
-    margin: 0 auto;
+    margin: 2rem auto 0 auto;
     border: 6px solid rgb(72, 131, 33);
     box-shadow: 8px 8px 6px 0 black;
     background: var(--main-background-color);
@@ -42,24 +42,29 @@
 }
 
 .gameboard {
+    width: 100%;
     display: grid;
-    grid-template-columns: 10rem 10rem 10rem;
-    grid-template-rows: 10rem 10rem 10rem;
-    margin-top: 3rem;
+    grid-template-columns: 9rem 9rem 9rem;
+    grid-template-rows: 9rem 9rem 9rem;
+    justify-items: center;
+    margin-top: 4%;
+    margin-bottom: 8%;
     justify-content: center;
+    align-items: center;
     gap: 12px;
     transition: all .5s ease-in-out;
 }
 
 .score-container {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     display: flex;
     justify-content: space-around;
 }
 
 .grid-block {
-    width: 10rem;
-    height: 10rem;
+    position: relative;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -220,4 +225,37 @@
         color: black;
     }
     
+}
+
+/*---------Media------------*/
+@media only screen and (max-width: 1100px) {
+    .gameboard {
+        grid-template-columns: 8rem 8rem 8rem;
+        grid-template-rows: 8rem 8rem 8rem;
+        gap: 10px;
+    }
+    .grid-block {
+        font-size: 7rem;
+        margin: 0;
+    }
+
+    .score-container {
+        font-size: 2rem;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .gameboard {
+        grid-template-columns: 5rem 5rem 5rem;
+        grid-template-rows: 5rem 5rem 5rem;
+        gap: 7px;
+    }
+    .grid-block {
+        font-size: 4rem;
+        margin: 0;
+    }
+
+    .score-container {
+        font-size: 1.4rem;
+    }
 }
