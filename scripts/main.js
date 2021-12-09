@@ -1,4 +1,4 @@
-const clickAudioSound = new Audio("[[sounds/simple_click.wav]]");
+const clickAudioSound = new Audio("sounds/simple_click.wav");
 const buttonClickSound = new Audio("sounds/click.wav");
 const messageSound = new Audio("sounds/message.wav");
 const gameMusic = new Audio("sounds/game_music.wav");
