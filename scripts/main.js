@@ -272,7 +272,7 @@ function displayRoundSummary(player, symbol) {
     summaryWindow.querySelector(".summary-content").style.visibility = "visible";
     if (player) {
         summaryWindow.querySelector("h2").innerText = `${player.getName()} won round!`;
-        summaryWindow.querySelector("img").src = symbol === "X" ? "[[./img/X.png|X_Image]]" : "[[./img/O.png|Y_Image]]";
+        summaryWindow.querySelector("img").src = symbol === "X" ? "[[/Tic-Tac-Toe/img/X.png|X_Image]]" : "[[/Tic-Tac-Toe/img/O.png|Y_Image]]";
     }
     else {
         summaryWindow.querySelector("h2").innerText = "Yep, it's a tie :)";
