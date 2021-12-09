@@ -240,7 +240,7 @@ function getClickedBlockIndex(element) {
 }
 
 function createGameboard() {
-    gameMusic.play();
+    //gameMusic.play();
     for (let i = 0; i < Gameboard.getSize(); i++) {
         const div = document.createElement("div");
         div.id = idGenerator.uniqueId("grid");
