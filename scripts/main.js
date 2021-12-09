@@ -1,7 +1,7 @@
-const clickAudioSound = new Audio("[[Sounds/simple_click.wav]]");
-const buttonClickSound = new Audio("[[Sounds/click.wav]]");
-const messageSound = new Audio("[[Sounds/message.wav]]");
-const gameMusic = new Audio("[[Sounds/game_music.wav]]");
+const clickAudioSound = new Audio("[[Tic-Tac-Toe/Sounds/simple_click.wav]]");
+const buttonClickSound = new Audio("[[Tic-Tac-Toe/Sounds/click.wav]]");
+const messageSound = new Audio("[[Tic-Tac-Toe/Sounds/message.wav]]");
+const gameMusic = new Audio("[[Tic-Tac-Toe/Sounds/game_music.wav]]");
 const numbersOnlyRegex = /\d+/g;
 const idGenerator = {};
 idGenerator.uniqueId = (function() {
