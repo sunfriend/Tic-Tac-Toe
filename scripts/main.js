@@ -1,8 +1,7 @@
-const clickAudioSound = new Audio("../Sounds/simple_click.wav");
-/* const buttonClickSound = new Audio("../Sounds/click.wav"); */
+const clickAudioSound = new Audio("[[/Sounds/simple_click.wav]]");
 const buttonClickSound = new Audio("[[/Sounds/click.wav]]");
-const messageSound = new Audio("../Sounds/message.wav");
-const gameMusic = new Audio("../Sounds/game_music.wav");
+const messageSound = new Audio("[[/Sounds/message.wav]]");
+const gameMusic = new Audio("[[/Sounds/game_music.wav]]");
 const numbersOnlyRegex = /\d+/g;
 const idGenerator = {};
 idGenerator.uniqueId = (function() {
@@ -273,7 +272,7 @@ function displayRoundSummary(player, symbol) {
     summaryWindow.querySelector(".summary-content").style.visibility = "visible";
     if (player) {
         summaryWindow.querySelector("h2").innerText = `${player.getName()} won round!`;
-        summaryWindow.querySelector("img").src = symbol === "X" ? "../img/X.png" : "../img/O.png"
+        summaryWindow.querySelector("img").src = symbol === "X" ? "[[/img/X.png]]" : "[[/img/O.png]]"
     }
     else {
         summaryWindow.querySelector("h2").innerText = "Yep, it's a tie :)";
