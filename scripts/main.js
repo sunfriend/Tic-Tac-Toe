@@ -97,16 +97,20 @@ function createPlayground() {
     playerNameLabel.innerText = `(${player.getSymbol()})-${player.getName()}: `;
     opponentNameLabel.innerText = `(${OPPONENT.getSymbol()})-${OPPONENT.getName()}: `;
     createGameboard();
+    if (OPPONENT.getType() === "computer" && OPPONENT.getSymbol() === "X") {
+        botTurn();
+    }
 }
 
 const Gameset = (() => {
     const _COMBOS = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
     let _activePlayer = 0;
 
-    const switchTurn = () => 
+    function switchTurn() {
         _activePlayer = _activePlayer === 0 ? 1 : 0;
+    }
 
-    const isWinner = (activePlayerSymbol) => {
+    function isWinner(activePlayerSymbol) {
         let arr = Gameboard.getAllValues();
         for (let i = 0; i < _COMBOS.length; i++) {
             let won = true;
@@ -120,13 +124,47 @@ const Gameset = (() => {
         return false;
     };
 
-    const isDraw = () => {
+    function isDraw() {
         let arr = Gameboard.getAllValues();
         return arr.every(block => block !== null);
     };
+    
     const getActivePlayer = () => _activePlayer;
     const setActivePlayer = (symbol) => {symbol === "X" ? _activePlayer = 0 : _activePlayer = 1;}
-    return {switchTurn, isWinner, isDraw, getActivePlayer, setActivePlayer};
+
+    const turnCheck = (_player) => {
+        let type;
+        if (OPPONENT.getType() === "computer") {
+            type = _player.getType() === "computer" ? 1 : 0;
+        }
+        else {
+            type = getActivePlayer();
+        }
+        if(isWinner(_player.getSymbol())){ 
+            clearGameboard();
+            _player.increaseScore();
+            playersScore[type].innerText = _player.getScore();
+            displayRoundSummary(_player, _player.getSymbol());
+            if (player.getSymbol() === "X"){
+                _activePlayer = 0;
+            }
+            else {
+                _activePlayer = 1;
+            }
+            return false;
+        }
+        else if (isDraw()) {
+            clearGameboard();
+            displayRoundSummary();
+            return false;
+        }
+        else {
+            switchTurn();
+            return true;
+        }
+    };
+
+    return {getActivePlayer, setActivePlayer, turnCheck};
 })();
 
 const Gameboard = (() => {
@@ -162,58 +200,39 @@ const Gameboard = (() => {
 
 
 function blockClicked(event) {
-    //get active player
     clickAudioSound.play();
-    const activePlayer = gamePlayers[Gameset.getActivePlayer()];
-    const playerSymbol = activePlayer.getSymbol();
-    Gameboard.setValue(getClickedBlockIndex(event), playerSymbol);
-    gameBoardContainer.querySelector(`#grid-${getClickedBlockIndex(event)}`).innerText = playerSymbol;
-    //Check if winner
-    if (Gameset.isWinner(playerSymbol)) {
-        clearGameboard();
-        //increase score of the winner
-        activePlayer.increaseScore();
-        //display winners score
-        playersScore[Gameset.getActivePlayer()].innerText = activePlayer.getScore();
-        //show round summary window
-        displayRoundSummary(activePlayer, playerSymbol);
-        Gameset.setActivePlayer(player.getSymbol());
-        return;
+    let blockIndex = getClickedBlockIndex(event);
+    let activePlayer = OPPONENT.getType() === "computer" ? 0 : Gameset.getActivePlayer();
+    Gameboard.setValue(blockIndex, gamePlayers[activePlayer].getSymbol());
+    gameBoardContainer.querySelector(`#grid-${getClickedBlockIndex(event)}`).innerText = Gameboard.getValue(blockIndex);
+    let isOpponentTurn = Gameset.turnCheck(gamePlayers[activePlayer]);
+    if (OPPONENT.getType() === "computer" && isOpponentTurn) {
+        botTurn();
+        Gameset.turnCheck(OPPONENT);
     }
-    //Check if tie
-    if (Gameset.isDraw()) {
-        clearGameboard();
-        //Show round summary window
-        displayRoundSummary();
-        return;
-    }  
-    //Switch turn if winner and tie are false
-    //Don't switch if opponent is computer
-    (OPPONENT.getType() !== "computer") ? Gameset.switchTurn() : botTurn();
+    if (OPPONENT.getType() === "computer" && !isOpponentTurn && OPPONENT.getSymbol() === "X") {
+        botTurn();
+    }
 }
 
 const Bot = (() => {
-
-    const getTurn = (indexArray) => {
+    const makeTurn = (indexArray) => {
         let randomIndex = generateRandomNumber();
-        let turn = indexArray.includes(randomIndex) ? randomIndex : getTurn(indexArray);
-        return turn;
+        return indexArray.includes(randomIndex) ? randomIndex : makeTurn(indexArray);
     };
    
     function generateRandomNumber() {
         return Math.floor(Math.random() * 9);
     }
 
-    return {getTurn};
+    return {makeTurn};
 })();
 
 function botTurn() {
-    let botTurn = Bot.getTurn(Gameboard.getFreeIndexes());
-    Gameboard.setValue(botTurn, gamePlayers[1].getSymbol());
-    //console.log(" BOT: index is " + botTurn);
+    let botTurn = Bot.makeTurn(Gameboard.getFreeIndexes());
+    Gameboard.setValue(botTurn, OPPONENT.getSymbol());
     gameBoardContainer.querySelector(`#grid-${botTurn}`).innerText = Gameboard.getValue(botTurn);
     gameBoardContainer.querySelector(`#grid-${botTurn}`).removeEventListener("click", blockClicked);
-    console.table(Gameboard.getAllValues());
 }
 
 function getClickedBlockIndex(element) {
