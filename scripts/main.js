@@ -1,5 +1,5 @@
 const clickAudioSound = new Audio("/Sounds/simple_click.wav");
-const buttonClickSound = new Audio("[[sunfriend.github.io/Tic-Tac-Toe/Sounds/click.wav]]");
+const buttonClickSound = new Audio("[[/Tic-Tac-Toe/Sounds/click.wav]]");
 const messageSound = new Audio("[[Sounds/message.wav]]");
 const gameMusic = new Audio("Sounds/game_music.wav");
 const numbersOnlyRegex = /\d+/g;
